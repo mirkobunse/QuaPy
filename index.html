@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Datasets" href="wiki/Datasets.html" /> 
+    <link rel="next" title="Manuals" href="manuals.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,16 +47,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Datasets.html">Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Evaluation.html">Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/ExplicitLossMinimization.html">Explicit Loss Minimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Methods.html">Quantification Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Model-Selection.html">Model Selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Plotting.html">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manuals.html">Manuals</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">List of Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quapy.html">API</a></li>
 </ul>
 
         </div>
@@ -75,7 +69,7 @@
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Quickstart</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/index.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -89,30 +83,17 @@
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading"></a></h1>
 <p>QuaPy is an open source framework for quantification (a.k.a. supervised prevalence estimation, or learning to quantify) written in Python.</p>
 <p>QuaPy is based on the concept of “data sample”, and provides implementations of the most important aspects of the quantification workflow, such as (baseline and advanced) quantification methods, quantification-oriented model selection mechanisms, evaluation measures, and evaluations protocols used for evaluating quantification methods. QuaPy also makes available commonly used datasets, and offers visualization tools for facilitating the analysis and interpretation of the experimental results.</p>
-<p>QuaPy is hosted on GitHub at <a class="reference external" href="https://github.com/HLT-ISTI/QuaPy">https://github.com/HLT-ISTI/QuaPy</a></p>
+<p>QuaPy is hosted on GitHub at <a class="reference external" href="https://github.com/HLT-ISTI/QuaPy">https://github.com/HLT-ISTI/QuaPy</a>.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install quapy
-</pre></div>
-</div>
-</section>
-<section id="citing-quapy">
-<h2>Citing QuaPy<a class="headerlink" href="#citing-quapy" title="Permalink to this heading"></a></h2>
-<p>If you find QuaPy useful (and we hope you will), please consider citing the original paper in your research.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@inproceedings{moreo2021quapy,
-  title={QuaPy: a python-based framework for quantification},
-  author={Moreo, Alejandro and Esuli, Andrea and Sebastiani, Fabrizio},
-  booktitle={Proceedings of the 30th ACM International Conference on Information \&amp; Knowledge Management},
-  pages={4534--4543},
-  year={2021}
-}
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>quapy
 </pre></div>
 </div>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>The following script fetches a dataset of tweets, trains, applies, and evaluates a quantifier based on the <em>Adjusted Classify &amp; Count</em> quantification method, using, as the evaluation measure, the <em>Mean Absolute Error</em> (MAE) between the predicted and the true class prevalence values of the test set:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_twitter</span><span class="p">(</span><span class="s1">&#39;semeval16&#39;</span><span class="p">)</span>
@@ -129,20 +110,54 @@
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mean Absolute Error (MAE)=</span><span class="si">{</span><span class="n">error</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Quantification is useful in scenarios characterized by prior probability shift. In other words, we would be little interested in estimating the class prevalence values of the test set if we could assume the IID assumption to hold, as this prevalence would be roughly equivalent to the class prevalence of the training set. For this reason, any quantification model should be tested across many samples, even ones characterized by class prevalence values different or very different from those found in the training set. QuaPy implements sampling procedures and evaluation protocols that automate this workflow. See the <a class="reference internal" href="#manuals">Manuals</a> for detailed examples.</p>
+<p>Quantification is useful in scenarios characterized by prior probability shift. In other words, we would be little interested in estimating the class prevalence values of the test set if we could assume the IID assumption to hold, as this prevalence would be roughly equivalent to the class prevalence of the training set. For this reason, any quantification model should be tested across many samples, even ones characterized by class prevalence values different or very different from those found in the training set. QuaPy implements sampling procedures and evaluation protocols that automate this workflow. See the <a class="reference internal" href="manuals.html"><span class="doc std std-doc">Manuals</span></a> for detailed examples.</p>
 </section>
 <section id="manuals">
 <h2>Manuals<a class="headerlink" href="#manuals" title="Permalink to this heading"></a></h2>
 <p>The following manuals illustrate several aspects of QuaPy through examples:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Datasets.html">Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Evaluation.html">Evaluation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/ExplicitLossMinimization.html">Explicit Loss Minimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Methods.html">Quantification Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Model-Selection.html">Model Selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Plotting.html">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wiki/Protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manuals.html">Manuals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manuals/datasets.html">1. Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manuals/datasets.html#reviews-datasets">1.1. Reviews Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/datasets.html#twitter-sentiment-datasets">1.2. Twitter Sentiment Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/datasets.html#uci-machine-learning">1.3. UCI Machine Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/datasets.html#lequa-2022-datasets">1.4. LeQua 2022 Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/datasets.html#ifcb-plankton-dataset">1.5. IFCB Plankton dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/datasets.html#adding-custom-datasets">1.6. Adding Custom Datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manuals/evaluation.html">2. Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manuals/evaluation.html#error-measures">2.1. Error Measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/evaluation.html#evaluation-protocols">2.2. Evaluation Protocols</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manuals/explicit-loss-minimization.html">3. Explicit Loss Minimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manuals/methods.html">4. Quantification Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manuals/methods.html#aggregative-methods">4.1. Aggregative Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/methods.html#meta-models">4.2. Meta Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manuals/model-selection.html">5. Model Selection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manuals/model-selection.html#targeting-a-quantification-oriented-loss">5.1. Targeting a Quantification-oriented loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/model-selection.html#targeting-a-classification-oriented-loss">5.2. Targeting a Classification-oriented loss</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manuals/plotting.html">6. Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manuals/plotting.html#diagonal-plot">6.1. Diagonal Plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/plotting.html#quantification-bias">6.2. Quantification bias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/plotting.html#error-by-drift">6.3. Error by Drift</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manuals/protocols.html">7. Protocols</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manuals/protocols.html#artificial-prevalence-protocol">7.1. Artificial-Prevalence Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/protocols.html#sampling-from-the-unit-simplex-the-uniform-prevalence-protocol-upp">7.2. Sampling from the unit-simplex, the Uniform-Prevalence Protocol (UPP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/protocols.html#natural-prevalence-protocol">7.3. Natural-Prevalence Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/protocols.html#other-protocols">7.4. Other protocols</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -169,6 +184,19 @@
 <li><p>Visualization tools for analysing the experimental results.</p></li>
 </ul>
 </section>
+<section id="citing-quapy">
+<h2>Citing QuaPy<a class="headerlink" href="#citing-quapy" title="Permalink to this heading"></a></h2>
+<p>If you find QuaPy useful (and we hope you will), please consider citing the original paper in your research.</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">moreo2021quapy</span><span class="p">,</span>
+<span class="w">   </span><span class="na">title</span><span class="p">=</span><span class="s">{QuaPy: a python-based framework for quantification}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">author</span><span class="p">=</span><span class="s">{Moreo, Alejandro and Esuli, Andrea and Sebastiani, Fabrizio}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">booktitle</span><span class="p">=</span><span class="s">{Proceedings of the 30th ACM International Conference on Information \&amp; Knowledge Management}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">pages</span><span class="p">=</span><span class="s">{4534--4543}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">year</span><span class="p">=</span><span class="s">{2021}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading"></a></h2>
 <p>In case you want to contribute improvements to quapy, please generate pull request to the “devel” branch.</p>
@@ -183,7 +211,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="wiki/Datasets.html" class="btn btn-neutral float-right" title="Datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="manuals.html" class="btn btn-neutral float-right" title="Manuals" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
