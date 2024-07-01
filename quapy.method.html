@@ -61,7 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-quapy.method.base">quapy.method.base module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-quapy.method.meta">quapy.method.meta module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-quapy.method.non_aggregative">quapy.method.non_aggregative module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#quapy-method-composable-module">quapy.method.composable module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-quapy.method.composable">quapy.method.composable module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-quapy.method">Module contents</a></li>
 </ul>
 </li>
@@ -4565,8 +4565,634 @@ sub-estimator of a meta-estimator, e.g. used inside a
 </dd></dl>
 
 </section>
-<section id="quapy-method-composable-module">
-<h2>quapy.method.composable module<a class="headerlink" href="#quapy-method-composable-module" title="Permalink to this heading"></a></h2>
+<section id="module-quapy.method.composable">
+<span id="quapy-method-composable-module"></span><h2>quapy.method.composable module<a class="headerlink" href="#module-quapy.method.composable" title="Permalink to this heading"></a></h2>
+<p>This module allows the composition of quantification methods from loss functions and feature transformations. This functionality is realized through an integration of the qunfold package: <a class="reference external" href="https://github.com/mirkobunse/qunfold">https://github.com/mirkobunse/qunfold</a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.BlobelLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">BlobelLoss</span></span><a class="reference internal" href="_modules/qunfold/losses.html#BlobelLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.BlobelLoss" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionLoss</span></code></p>
+<p>The loss function of RUN (Blobel, 1985).</p>
+<p>This loss function models a likelihood function under the assumption of independent Poisson-distributed elements of <cite>q</cite> with Poisson rates <cite>M*p</cite>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.CVClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">CVClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_estimators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/sklearn.html#CVClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.CVClassifier" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></a>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassifierMixin</span></code></a></p>
+<p>An ensemble of classifiers that are trained from cross-validation folds.</p>
+<p>All objects of this type have a fixed attribute <cite>oob_score = True</cite> and, when trained, a fitted attribute <cite>self.oob_decision_function_</cite>, just like scikit-learn bagging classifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>estimator</strong> – A classifier that implements the API of scikit-learn.</p></li>
+<li><p><strong>n_estimators</strong> (<em>optional</em>) – The number of stratified cross-validation folds. Defaults to <cite>5</cite>.</p></li>
+<li><p><strong>random_state</strong> (<em>optional</em>) – The random state for stratification. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Here, we create an instance of ACC that trains a logistic regression classifier with 10 cross-validation folds.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ACC</span><span class="p">(</span><span class="n">CVClassifier</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.CVClassifier.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/sklearn.html#CVClassifier.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.CVClassifier.fit" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.CVClassifier.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/sklearn.html#CVClassifier.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.CVClassifier.predict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.CVClassifier.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/sklearn.html#CVClassifier.predict_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.CVClassifier.predict_proba" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.CVClassifier.set_score_request">
+<span class="sig-name descname"><span class="pre">set_score_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#quapy.method.composable.CVClassifier" title="qunfold.sklearn.CVClassifier"><span class="pre">CVClassifier</span></a></span></span><a class="headerlink" href="#quapy.method.composable.CVClassifier.set_score_request" title="Permalink to this definition"></a></dt>
+<dd><p>Request metadata passed to the <code class="docutils literal notranslate"><span class="pre">score</span></code> method.</p>
+<p>Note that this method is only relevant if
+<code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.set_config.html#sklearn.set_config" title="(in scikit-learn v1.5)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code></a>).
+Please see <a class="reference external" href="https://scikit-learn.org/stable/metadata_routing.html#metadata-routing" title="(in scikit-learn v1.5)"><span class="xref std std-ref">User Guide</span></a> on how the routing
+mechanism works.</p>
+<p>The options for each parameter are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">score</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
+</ul>
+<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
+existing request. This allows you to change the request for some
+parameters and not others.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.3.</span></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method is only relevant if this estimator is used as a
+sub-estimator of a meta-estimator, e.g. used inside a
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>. Otherwise it has no effect.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sample_weight</strong> (<em>str</em><em>, </em><em>True</em><em>, </em><em>False</em><em>, or </em><em>None</em><em>,                     </em><em>default=sklearn.utils.metadata_routing.UNCHANGED</em>) – Metadata routing for <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>self</strong> – The updated object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.ClassTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">ClassTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_probabilistic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_classifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#ClassTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.ClassTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTransformer</span></code></p>
+<p>A classification-based feature transformation.</p>
+<p>This transformation can either be probabilistic (using the posterior predictions of a classifier) or crisp (using the class predictions of a classifier). It is used in ACC, PACC, CC, PCC, and SLD.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>classifier</strong> – A classifier that implements the API of scikit-learn.</p></li>
+<li><p><strong>is_probabilistic</strong> (<em>optional</em>) – Whether probabilistic or crisp predictions of the <cite>classifier</cite> are used to transform the data. Defaults to <cite>False</cite>.</p></li>
+<li><p><strong>fit_classifier</strong> (<em>optional</em>) – Whether to fit the <cite>classifier</cite> when this quantifier is fitted. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.ClassTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#ClassTransformer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.ClassTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to fit the transformer and to return the transformation of the input data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations of this abstract method should check the sanity of labels by calling <cite>_check_y(y, n_classes)</cite> and they must set the property <cite>self.p_trn = class_prevalences(y, n_classes)</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix to which this transformer will be fitted.</p></li>
+<li><p><strong>y</strong> – The labels to which this transformer will be fitted.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a transfer matrix <cite>M</cite> or a transformation <cite>(f(X), y)</cite>. Defaults to <cite>True</cite>.</p></li>
+<li><p><strong>n_classes</strong> (<em>optional</em>) – The number of expected classes. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transfer matrix <cite>M</cite> if <cite>average==True</cite> or a transformation <cite>(f(X), y)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.ClassTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#ClassTransformer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.ClassTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to transform the data <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix that will be transformed.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a vector <cite>q</cite> or a transformation <cite>f(X)</cite>. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector <cite>q = f(X).mean(axis=0)</cite> if <cite>average==True</cite> or a transformation <cite>f(X)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.CombinedLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">CombinedLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">losses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/losses.html#CombinedLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.CombinedLoss" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractLoss</span></code></p>
+<p>The weighted sum of multiple losses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*losses</strong> – An arbitrary number of losses to be added together.</p></li>
+<li><p><strong>weights</strong> (<em>optional</em>) – An array of weights which the losses are scaled.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quapy.method.composable.ComposableQuantifier">
+<span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">ComposableQuantifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/quapy/method/composable.html#ComposableQuantifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.ComposableQuantifier" title="Permalink to this definition"></a></dt>
+<dd><p>A generic quantification / unfolding method that solves a linear system of equations.</p>
+<p>This class represents any quantifier that can be described in terms of a loss function, a feature transformation, and a regularization term. In this implementation, the loss is minimized through unconstrained second-order minimization. Valid probability estimates are ensured through a soft-max trick by Bunse (2022).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loss</strong> – An instance of a loss class from <cite>quapy.methods.composable</cite>.</p></li>
+<li><p><strong>transformer</strong> – An instance of a transformer class from <cite>quapy.methods.composable</cite>.</p></li>
+<li><p><strong>solver</strong> (<em>optional</em>) – The <cite>method</cite> argument in <cite>scipy.optimize.minimize</cite>. Defaults to <cite>“trust-ncg”</cite>.</p></li>
+<li><p><strong>solver_options</strong> (<em>optional</em>) – The <cite>options</cite> argument in <cite>scipy.optimize.minimize</cite>. Defaults to <cite>{“gtol”: 1e-8, “maxiter”: 1000}</cite>.</p></li>
+<li><p><strong>seed</strong> (<em>optional</em>) – A random number generator seed from which a numpy RandomState is created. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Here, we create the ordinal variant of ACC (Bunse et al., 2023). This variant consists of the original feature transformation of ACC and of the original loss of ACC, the latter of which is regularized towards smooth solutions.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">qunfold.method.composable</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ComposableQuantifier</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">TikhonovRegularized</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">LeastSquaresLoss</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ClassTransformer</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o_acc</span> <span class="o">=</span> <span class="n">ComposableQuantifier</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">TikhonovRegularized</span><span class="p">(</span><span class="n">LeastSquaresLoss</span><span class="p">(),</span> <span class="mf">0.01</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ClassTransformer</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we perform hyper-parameter optimization with the ordinal ACC.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">quapy</span><span class="o">.</span><span class="n">model_selection</span><span class="o">.</span><span class="n">GridSearchQ</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span> <span class="o">=</span> <span class="n">o_acc</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span> <span class="c1"># try both splitting criteria</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="s2">&quot;transformer__classifier__estimator__criterion&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;gini&quot;</span><span class="p">,</span> <span class="s2">&quot;entropy&quot;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">},</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To use a classifier that does not provide the <cite>oob_score</cite> argument, such as logistic regression, you have to configure a cross validation of this classifier. Here, we employ 10 cross validation folds. 5 folds are the default.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">qunfold.method.composable</span> <span class="kn">import</span> <span class="n">CVClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">acc_lr</span> <span class="o">=</span> <span class="n">ComposableQuantifier</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">LeastSquaresLoss</span><span class="p">(),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ClassTransformer</span><span class="p">(</span><span class="n">CVClassifier</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.DistanceTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">DistanceTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'euclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocessor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#DistanceTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.DistanceTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTransformer</span></code></p>
+<p>A distance-based feature transformation, as it is used in <cite>EDx</cite> and <cite>EDy</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> (<em>optional</em>) – The metric with which the distance between data items is measured. Can take any value that is accepted by <cite>scipy.spatial.distance.cdist</cite>. Defaults to <cite>“euclidean”</cite>.</p></li>
+<li><p><strong>preprocessor</strong> (<em>optional</em>) – Another <cite>AbstractTransformer</cite> that is called before this transformer. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.DistanceTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#DistanceTransformer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.DistanceTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to fit the transformer and to return the transformation of the input data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations of this abstract method should check the sanity of labels by calling <cite>_check_y(y, n_classes)</cite> and they must set the property <cite>self.p_trn = class_prevalences(y, n_classes)</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix to which this transformer will be fitted.</p></li>
+<li><p><strong>y</strong> – The labels to which this transformer will be fitted.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a transfer matrix <cite>M</cite> or a transformation <cite>(f(X), y)</cite>. Defaults to <cite>True</cite>.</p></li>
+<li><p><strong>n_classes</strong> (<em>optional</em>) – The number of expected classes. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transfer matrix <cite>M</cite> if <cite>average==True</cite> or a transformation <cite>(f(X), y)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.DistanceTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#DistanceTransformer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.DistanceTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to transform the data <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix that will be transformed.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a vector <cite>q</cite> or a transformation <cite>f(X)</cite>. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector <cite>q = f(X).mean(axis=0)</cite> if <cite>average==True</cite> or a transformation <cite>f(X)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.EnergyKernelTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">EnergyKernelTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preprocessor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#EnergyKernelTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.EnergyKernelTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTransformer</span></code></p>
+<p>A kernel-based feature transformation, as it is used in <cite>KMM</cite>, that uses the <cite>energy</cite> kernel:</p>
+<blockquote>
+<div><p>k(x_1, x_2) = ||x_1|| + ||x_2|| - ||x_1 - x_2||</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The methods of this transformer do not support setting <cite>average=False</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>preprocessor</strong> (<em>optional</em>) – Another <cite>AbstractTransformer</cite> that is called before this transformer. Defaults to <cite>None</cite>.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.EnergyKernelTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#EnergyKernelTransformer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.EnergyKernelTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to fit the transformer and to return the transformation of the input data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations of this abstract method should check the sanity of labels by calling <cite>_check_y(y, n_classes)</cite> and they must set the property <cite>self.p_trn = class_prevalences(y, n_classes)</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix to which this transformer will be fitted.</p></li>
+<li><p><strong>y</strong> – The labels to which this transformer will be fitted.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a transfer matrix <cite>M</cite> or a transformation <cite>(f(X), y)</cite>. Defaults to <cite>True</cite>.</p></li>
+<li><p><strong>n_classes</strong> (<em>optional</em>) – The number of expected classes. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transfer matrix <cite>M</cite> if <cite>average==True</cite> or a transformation <cite>(f(X), y)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.EnergyKernelTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#EnergyKernelTransformer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.EnergyKernelTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to transform the data <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix that will be transformed.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a vector <cite>q</cite> or a transformation <cite>f(X)</cite>. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector <cite>q = f(X).mean(axis=0)</cite> if <cite>average==True</cite> or a transformation <cite>f(X)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.EnergyLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">EnergyLoss</span></span><a class="reference internal" href="_modules/qunfold/losses.html#EnergyLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.EnergyLoss" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionLoss</span></code></p>
+<p>The loss function of EDx (Kawakubo et al., 2016) and EDy (Castaño et al., 2022).</p>
+<p>This loss function represents the Energy Distance between two samples.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.GaussianKernelTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">GaussianKernelTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocessor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#GaussianKernelTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.GaussianKernelTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTransformer</span></code></p>
+<p>A kernel-based feature transformation, as it is used in <cite>KMM</cite>, that uses the <cite>gaussian</cite> kernel:</p>
+<blockquote>
+<div><p>k(x, y) = exp(-||x - y||^2 / (2σ^2))</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong> (<em>optional</em>) – A smoothing parameter of the kernel function. Defaults to <cite>1</cite>.</p></li>
+<li><p><strong>preprocessor</strong> (<em>optional</em>) – Another <cite>AbstractTransformer</cite> that is called before this transformer. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.GaussianKernelTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#GaussianKernelTransformer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.GaussianKernelTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to fit the transformer and to return the transformation of the input data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations of this abstract method should check the sanity of labels by calling <cite>_check_y(y, n_classes)</cite> and they must set the property <cite>self.p_trn = class_prevalences(y, n_classes)</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix to which this transformer will be fitted.</p></li>
+<li><p><strong>y</strong> – The labels to which this transformer will be fitted.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a transfer matrix <cite>M</cite> or a transformation <cite>(f(X), y)</cite>. Defaults to <cite>True</cite>.</p></li>
+<li><p><strong>n_classes</strong> (<em>optional</em>) – The number of expected classes. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transfer matrix <cite>M</cite> if <cite>average==True</cite> or a transformation <cite>(f(X), y)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.GaussianKernelTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#GaussianKernelTransformer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.GaussianKernelTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to transform the data <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix that will be transformed.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a vector <cite>q</cite> or a transformation <cite>f(X)</cite>. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector <cite>q = f(X).mean(axis=0)</cite> if <cite>average==True</cite> or a transformation <cite>f(X)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.GaussianRFFKernelTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">GaussianRFFKernelTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocessor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#GaussianRFFKernelTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.GaussianRFFKernelTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTransformer</span></code></p>
+<p>An efficient approximation of the <cite>GaussianKernelTransformer</cite>, as it is used in <cite>KMM</cite>, using random Fourier features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong> (<em>optional</em>) – A smoothing parameter of the kernel function. Defaults to <cite>1</cite>.</p></li>
+<li><p><strong>n_rff</strong> (<em>optional</em>) – The number of random Fourier features. Defaults to <cite>1000</cite>.</p></li>
+<li><p><strong>preprocessor</strong> (<em>optional</em>) – Another <cite>AbstractTransformer</cite> that is called before this transformer. Defaults to <cite>None</cite>.</p></li>
+<li><p><strong>seed</strong> (<em>optional</em>) – Controls the randomness of the random Fourier features. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.GaussianRFFKernelTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#GaussianRFFKernelTransformer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.GaussianRFFKernelTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to fit the transformer and to return the transformation of the input data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations of this abstract method should check the sanity of labels by calling <cite>_check_y(y, n_classes)</cite> and they must set the property <cite>self.p_trn = class_prevalences(y, n_classes)</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix to which this transformer will be fitted.</p></li>
+<li><p><strong>y</strong> – The labels to which this transformer will be fitted.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a transfer matrix <cite>M</cite> or a transformation <cite>(f(X), y)</cite>. Defaults to <cite>True</cite>.</p></li>
+<li><p><strong>n_classes</strong> (<em>optional</em>) – The number of expected classes. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transfer matrix <cite>M</cite> if <cite>average==True</cite> or a transformation <cite>(f(X), y)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.GaussianRFFKernelTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#GaussianRFFKernelTransformer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.GaussianRFFKernelTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to transform the data <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix that will be transformed.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a vector <cite>q</cite> or a transformation <cite>f(X)</cite>. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector <cite>q = f(X).mean(axis=0)</cite> if <cite>average==True</cite> or a transformation <cite>f(X)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.HellingerSurrogateLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">HellingerSurrogateLoss</span></span><a class="reference internal" href="_modules/qunfold/losses.html#HellingerSurrogateLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.HellingerSurrogateLoss" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionLoss</span></code></p>
+<p>The loss function of HDx and HDy (González-Castro et al., 2013).</p>
+<p>This loss function computes the average of the squared Hellinger distances between feature-wise (or class-wise) histograms. Note that the original HDx and HDy by González-Castro et al (2013) do not use the squared but the regular Hellinger distance. Their approach is problematic because the regular distance is not always twice differentiable and, hence, complicates numerical optimizations.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.HistogramTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">HistogramTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_bins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocessor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#HistogramTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.HistogramTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTransformer</span></code></p>
+<p>A histogram-based feature transformation, as it is used in <cite>HDx</cite> and <cite>HDy</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_bins</strong> – The number of bins in each feature.</p></li>
+<li><p><strong>preprocessor</strong> (<em>optional</em>) – Another <cite>AbstractTransformer</cite> that is called before this transformer. Defaults to <cite>None</cite>.</p></li>
+<li><p><strong>unit_scale</strong> (<em>optional</em>) – Whether or not to scale each output to a sum of one. A value of <cite>False</cite> indicates that the sum of each output is the number of features. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.HistogramTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#HistogramTransformer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.HistogramTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to fit the transformer and to return the transformation of the input data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations of this abstract method should check the sanity of labels by calling <cite>_check_y(y, n_classes)</cite> and they must set the property <cite>self.p_trn = class_prevalences(y, n_classes)</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix to which this transformer will be fitted.</p></li>
+<li><p><strong>y</strong> – The labels to which this transformer will be fitted.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a transfer matrix <cite>M</cite> or a transformation <cite>(f(X), y)</cite>. Defaults to <cite>True</cite>.</p></li>
+<li><p><strong>n_classes</strong> (<em>optional</em>) – The number of expected classes. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transfer matrix <cite>M</cite> if <cite>average==True</cite> or a transformation <cite>(f(X), y)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.HistogramTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#HistogramTransformer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.HistogramTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to transform the data <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix that will be transformed.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a vector <cite>q</cite> or a transformation <cite>f(X)</cite>. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector <cite>q = f(X).mean(axis=0)</cite> if <cite>average==True</cite> or a transformation <cite>f(X)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.KernelTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">KernelTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#KernelTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.KernelTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTransformer</span></code></p>
+<p>A general kernel-based feature transformation, as it is used in <cite>KMM</cite>. If you intend to use a Gaussian kernel or energy kernel, prefer their dedicated and more efficient implementations over this class.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The methods of this transformer do not support setting <cite>average=False</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kernel</strong> – A callable that will be used as the kernel. Must follow the signature <cite>(X[y==i], X[y==j]) -&gt; scalar</cite>.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.KernelTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#KernelTransformer.fit_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.KernelTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to fit the transformer and to return the transformation of the input data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implementations of this abstract method should check the sanity of labels by calling <cite>_check_y(y, n_classes)</cite> and they must set the property <cite>self.p_trn = class_prevalences(y, n_classes)</cite>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix to which this transformer will be fitted.</p></li>
+<li><p><strong>y</strong> – The labels to which this transformer will be fitted.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a transfer matrix <cite>M</cite> or a transformation <cite>(f(X), y)</cite>. Defaults to <cite>True</cite>.</p></li>
+<li><p><strong>n_classes</strong> (<em>optional</em>) – The number of expected classes. Defaults to <cite>None</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transfer matrix <cite>M</cite> if <cite>average==True</cite> or a transformation <cite>(f(X), y)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="quapy.method.composable.KernelTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#KernelTransformer.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.KernelTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>This abstract method has to transform the data <cite>X</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – The feature matrix that will be transformed.</p></li>
+<li><p><strong>average</strong> (<em>optional</em>) – Whether to return a vector <cite>q</cite> or a transformation <cite>f(X)</cite>. Defaults to <cite>True</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector <cite>q = f(X).mean(axis=0)</cite> if <cite>average==True</cite> or a transformation <cite>f(X)</cite> if <cite>average==False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.LaplacianKernelTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">LaplacianKernelTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/transformers.html#LaplacianKernelTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.LaplacianKernelTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#quapy.method.composable.KernelTransformer" title="qunfold.transformers.KernelTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelTransformer</span></code></a></p>
+<p>A kernel-based feature transformation, as it is used in <cite>KMM</cite>, that uses the <cite>laplacian</cite> kernel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sigma</strong> (<em>optional</em>) – A smoothing parameter of the kernel function. Defaults to <cite>1</cite>.</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="quapy.method.composable.LaplacianKernelTransformer.kernel">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kernel</span></span><a class="headerlink" href="#quapy.method.composable.LaplacianKernelTransformer.kernel" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.LeastSquaresLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">LeastSquaresLoss</span></span><a class="reference internal" href="_modules/qunfold/losses.html#LeastSquaresLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.LeastSquaresLoss" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionLoss</span></code></p>
+<p>The loss function of ACC (Forman, 2008), PACC (Bella et al., 2019), and ReadMe (Hopkins &amp; King, 2010).</p>
+<p>This loss function computes the sum of squares of element-wise errors between <cite>q</cite> and <cite>M*p</cite>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="quapy.method.composable.TikhonovRegularization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">TikhonovRegularization</span></span><a class="reference internal" href="_modules/qunfold/losses.html#TikhonovRegularization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.TikhonovRegularization" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractLoss</span></code></p>
+<p>Tikhonov regularization, as proposed by Blobel (1985).</p>
+<p>This regularization promotes smooth solutions. This behavior is often required in ordinal quantification and in unfolding problems.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="quapy.method.composable.TikhonovRegularized">
+<span class="sig-prename descclassname"><span class="pre">quapy.method.composable.</span></span><span class="sig-name descname"><span class="pre">TikhonovRegularized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qunfold/losses.html#TikhonovRegularized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quapy.method.composable.TikhonovRegularized" title="Permalink to this definition"></a></dt>
+<dd><p>Add TikhonovRegularization (Blobel, 1985) to any loss.</p>
+<p>Calling this function is equivalent to calling</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CombinedLoss</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">TikhonovRegularization</span><span class="p">(),</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">tau</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loss</strong> – An instance from <cite>qunfold.losses</cite>.</p></li>
+<li><p><strong>tau</strong> (<em>optional</em>) – The regularization strength. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of <cite>CombinedLoss</cite>.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The regularized loss of RUN (Blobel, 1985) is:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TikhonovRegularization</span><span class="p">(</span><span class="n">BlobelLoss</span><span class="p">(),</span> <span class="n">tau</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 <section id="module-quapy.method">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-quapy.method" title="Permalink to this heading"></a></h2>
