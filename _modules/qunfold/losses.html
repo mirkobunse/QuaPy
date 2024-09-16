@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=a4622379"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/documentation_options.js?v=8618f531"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -186,7 +186,9 @@
     <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">nonzero</span><span class="p">]</span>
     <span class="k">return</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
 
-<div class="viewcode-block" id="LeastSquaresLoss"><a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.LeastSquaresLoss">[docs]</a><span class="k">class</span> <span class="nc">LeastSquaresLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
+<div class="viewcode-block" id="LeastSquaresLoss">
+<a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.LeastSquaresLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">LeastSquaresLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;The loss function of ACC (Forman, 2008), PACC (Bella et al., 2019), and ReadMe (Hopkins &amp; King, 2010).</span>
 
 <span class="sd">  This loss function computes the sum of squares of element-wise errors between `q` and `M*p`.</span>
@@ -194,7 +196,10 @@
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_lsq</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BlobelLoss"><a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.BlobelLoss">[docs]</a><span class="k">class</span> <span class="nc">BlobelLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BlobelLoss">
+<a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.BlobelLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">BlobelLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;The loss function of RUN (Blobel, 1985).</span>
 
 <span class="sd">  This loss function models a likelihood function under the assumption of independent Poisson-distributed elements of `q` with Poisson rates `M*p`.</span>
@@ -202,7 +207,10 @@
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_blobel</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EnergyLoss"><a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.EnergyLoss">[docs]</a><span class="k">class</span> <span class="nc">EnergyLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
+
+<div class="viewcode-block" id="EnergyLoss">
+<a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.EnergyLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">EnergyLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;The loss function of EDx (Kawakubo et al., 2016) and EDy (Castaño et al., 2022).</span>
 
 <span class="sd">  This loss function represents the Energy Distance between two samples.</span>
@@ -210,13 +218,17 @@
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_energy</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HellingerSurrogateLoss"><a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.HellingerSurrogateLoss">[docs]</a><span class="k">class</span> <span class="nc">HellingerSurrogateLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
+
+<div class="viewcode-block" id="HellingerSurrogateLoss">
+<a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.HellingerSurrogateLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">HellingerSurrogateLoss</span><span class="p">(</span><span class="n">FunctionLoss</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;The loss function of HDx and HDy (González-Castro et al., 2013).</span>
 
 <span class="sd">  This loss function computes the average of the squared Hellinger distances between feature-wise (or class-wise) histograms. Note that the original HDx and HDy by González-Castro et al (2013) do not use the squared but the regular Hellinger distance. Their approach is problematic because the regular distance is not always twice differentiable and, hence, complicates numerical optimizations.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_hellinger_surrogate</span><span class="p">)</span>    </div>
+
 
 
 <span class="c1"># helper function for CombinedLoss</span>
@@ -226,7 +238,9 @@
     <span class="n">combined_loss</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">loss</span><span class="o">.</span><span class="n">_instantiate</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">)(</span><span class="n">p</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">combined_loss</span>
 
-<div class="viewcode-block" id="CombinedLoss"><a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.CombinedLoss">[docs]</a><span class="k">class</span> <span class="nc">CombinedLoss</span><span class="p">(</span><span class="n">AbstractLoss</span><span class="p">):</span>
+<div class="viewcode-block" id="CombinedLoss">
+<a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.CombinedLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">CombinedLoss</span><span class="p">(</span><span class="n">AbstractLoss</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;The weighted sum of multiple losses.</span>
 
 <span class="sd">  Args:</span>
@@ -235,11 +249,13 @@
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">losses</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">losses</span> <span class="o">=</span> <span class="n">losses</span>
-    <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-      <span class="n">weights</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span>
   <span class="k">def</span> <span class="nf">_instantiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span>
+    <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">weights</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">losses</span><span class="p">))</span>
     <span class="k">return</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">_combine_losses</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">losses</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span></div>
+
 
 <span class="c1"># helpers for TikhonovRegularization</span>
 <span class="k">def</span> <span class="nf">_tikhonov_matrix</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
@@ -252,7 +268,9 @@
   <span class="n">Tp</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Tp</span><span class="p">,</span> <span class="n">Tp</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 
-<div class="viewcode-block" id="TikhonovRegularization"><a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.TikhonovRegularization">[docs]</a><span class="k">class</span> <span class="nc">TikhonovRegularization</span><span class="p">(</span><span class="n">AbstractLoss</span><span class="p">):</span>
+<div class="viewcode-block" id="TikhonovRegularization">
+<a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.TikhonovRegularization">[docs]</a>
+<span class="k">class</span> <span class="nc">TikhonovRegularization</span><span class="p">(</span><span class="n">AbstractLoss</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;Tikhonov regularization, as proposed by Blobel (1985).</span>
 
 <span class="sd">  This regularization promotes smooth solutions. This behavior is often required in ordinal quantification and in unfolding problems.</span>
@@ -261,10 +279,13 @@
     <span class="n">T</span> <span class="o">=</span> <span class="n">_tikhonov_matrix</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">return</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">_tikhonov</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span></div>
 
+
 <span class="c1"># TikhonovRegularized is implemented as a function instead of a class to facilitate</span>
 <span class="c1"># the inspection that the QuaPyWrapper takes out.</span>
 
-<div class="viewcode-block" id="TikhonovRegularized"><a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.TikhonovRegularized">[docs]</a><span class="k">def</span> <span class="nf">TikhonovRegularized</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+<div class="viewcode-block" id="TikhonovRegularized">
+<a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.TikhonovRegularized">[docs]</a>
+<span class="k">def</span> <span class="nf">TikhonovRegularized</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;Add TikhonovRegularization (Blobel, 1985) to any loss.</span>
 
 <span class="sd">  Calling this function is equivalent to calling</span>
@@ -284,6 +305,7 @@
 <span class="sd">          &gt;&gt;&gt; TikhonovRegularization(BlobelLoss(), tau)</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">return</span> <span class="n">CombinedLoss</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">TikhonovRegularization</span><span class="p">(),</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">tau</span><span class="p">])</span></div>
+
 </pre></div>
 
            </div>

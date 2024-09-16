@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=a4622379"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../_static/documentation_options.js?v=8618f531"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -93,7 +93,9 @@
 <span class="kn">from</span> <span class="nn">quapy.util</span> <span class="kn">import</span> <span class="n">EarlyStop</span>
 
 
-<div class="viewcode-block" id="NeuralClassifierTrainer"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer">[docs]</a><span class="k">class</span> <span class="nc">NeuralClassifierTrainer</span><span class="p">:</span>
+<div class="viewcode-block" id="NeuralClassifierTrainer">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer">[docs]</a>
+<span class="k">class</span> <span class="nc">NeuralClassifierTrainer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Trains a neural network for text classification.</span>
 
@@ -144,7 +146,9 @@
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[NeuralNetwork running on </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">checkpointpath</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<div class="viewcode-block" id="NeuralClassifierTrainer.reset_net_params"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.reset_net_params">[docs]</a>    <span class="k">def</span> <span class="nf">reset_net_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">):</span>
+<div class="viewcode-block" id="NeuralClassifierTrainer.reset_net_params">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.reset_net_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_net_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reinitialize the network parameters</span>
 
 <span class="sd">        :param vocab_size: the size of the vocabulary</span>
@@ -154,14 +158,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trainer_hyperparams</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">xavier_uniform</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="NeuralClassifierTrainer.get_params"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NeuralClassifierTrainer.get_params">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.get_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hyper-parameters for this estimator</span>
 
 <span class="sd">        :return: a dictionary with parameter names mapped to their values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">get_params</span><span class="p">(),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">trainer_hyperparams</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="NeuralClassifierTrainer.set_params"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.set_params">[docs]</a>    <span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NeuralClassifierTrainer.set_params">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.set_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the parameters of this trainer and the learner it is training.</span>
 <span class="sd">        In this current version, parameter names for the trainer and learner should</span>
 <span class="sd">        be disjoint.</span>
@@ -184,6 +194,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">trainer_hyperparams</span> <span class="o">=</span> <span class="n">trainer_hyperparams</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">learner_hyperparams</span> <span class="o">=</span> <span class="n">learner_hyperparams</span> </div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -241,7 +252,9 @@
                              <span class="sa">f</span><span class="s1">&#39;val-acc=</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">[</span><span class="s2">&quot;va&quot;</span><span class="p">][</span><span class="s2">&quot;acc&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">% &#39;</span>
                              <span class="sa">f</span><span class="s1">&#39;macroF1=</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">[</span><span class="s2">&quot;va&quot;</span><span class="p">][</span><span class="s2">&quot;f1&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="NeuralClassifierTrainer.fit"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">val_split</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+<div class="viewcode-block" id="NeuralClassifierTrainer.fit">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">val_split</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fits the model according to the given training data.</span>
 
@@ -287,7 +300,10 @@
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="NeuralClassifierTrainer.predict"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NeuralClassifierTrainer.predict">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.predict">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts labels for the instances</span>
 
@@ -297,7 +313,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">instances</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NeuralClassifierTrainer.predict_proba"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.predict_proba">[docs]</a>    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NeuralClassifierTrainer.predict_proba">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.predict_proba">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts posterior probabilities for the instances</span>
 
@@ -313,7 +332,10 @@
                 <span class="n">posteriors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">xi</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">posteriors</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NeuralClassifierTrainer.transform"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NeuralClassifierTrainer.transform">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.NeuralClassifierTrainer.transform">[docs]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the embeddings of the instances</span>
 
@@ -328,10 +350,14 @@
             <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">TorchDataset</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span><span class="o">.</span><span class="n">asDataloader</span><span class="p">(</span>
                     <span class="n">opt</span><span class="p">[</span><span class="s1">&#39;batch_size_test&#39;</span><span class="p">],</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pad_length</span><span class="o">=</span><span class="n">opt</span><span class="p">[</span><span class="s1">&#39;padding_length&#39;</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">opt</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]):</span>
                 <span class="n">embeddings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">document_embedding</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="TorchDataset"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TorchDataset">[docs]</a><span class="k">class</span> <span class="nc">TorchDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TorchDataset">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TorchDataset">[docs]</a>
+<span class="k">class</span> <span class="nc">TorchDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transforms labelled instances into a Torch&#39;s :class:`torch.utils.data.DataLoader` object</span>
 
@@ -349,7 +375,9 @@
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">}</span>
 
-<div class="viewcode-block" id="TorchDataset.asDataloader"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TorchDataset.asDataloader">[docs]</a>    <span class="k">def</span> <span class="nf">asDataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">,</span> <span class="n">pad_length</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+<div class="viewcode-block" id="TorchDataset.asDataloader">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TorchDataset.asDataloader">[docs]</a>
+    <span class="k">def</span> <span class="nf">asDataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">,</span> <span class="n">pad_length</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts the labelled collection into a Torch DataLoader with dynamic padding for</span>
 <span class="sd">        the batch</span>
@@ -373,15 +401,21 @@
                 <span class="k">return</span> <span class="p">[</span><span class="n">data</span><span class="p">,</span> <span class="n">targets</span><span class="p">]</span>
 
         <span class="n">torchDataset</span> <span class="o">=</span> <span class="n">TorchDataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">torchDataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="n">collate</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">torchDataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">,</span> <span class="n">collate_fn</span><span class="o">=</span><span class="n">collate</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="TextClassifierNet"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet">[docs]</a><span class="k">class</span> <span class="nc">TextClassifierNet</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TextClassifierNet">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet">[docs]</a>
+<span class="k">class</span> <span class="nc">TextClassifierNet</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Abstract Text classifier (`torch.nn.Module`)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TextClassifierNet.document_embedding"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.document_embedding">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="TextClassifierNet.document_embedding">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.document_embedding">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">document_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Embeds documents (i.e., performs the forward pass up to the</span>
 <span class="sd">        next-to-last layer).</span>
@@ -394,7 +428,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="TextClassifierNet.forward"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TextClassifierNet.forward">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Performs the forward pass.</span>
 
 <span class="sd">        :param x: a batch of instances, typically generated by a torch&#39;s `DataLoader`</span>
@@ -405,14 +442,20 @@
         <span class="n">doc_embedded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_embedding</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">doc_embedded</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TextClassifierNet.dimensions"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.dimensions">[docs]</a>    <span class="k">def</span> <span class="nf">dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TextClassifierNet.dimensions">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.dimensions">[docs]</a>
+    <span class="k">def</span> <span class="nf">dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the number of dimensions of the embedding space</span>
 
 <span class="sd">        :return: integer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span></div>
 
-<div class="viewcode-block" id="TextClassifierNet.predict_proba"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.predict_proba">[docs]</a>    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TextClassifierNet.predict_proba">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.predict_proba">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts posterior probabilities for the instances in `x`</span>
 
@@ -424,7 +467,10 @@
         <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="TextClassifierNet.xavier_uniform"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.xavier_uniform">[docs]</a>    <span class="k">def</span> <span class="nf">xavier_uniform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TextClassifierNet.xavier_uniform">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.xavier_uniform">[docs]</a>
+    <span class="k">def</span> <span class="nf">xavier_uniform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs Xavier initialization of the network parameters</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -432,7 +478,10 @@
             <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TextClassifierNet.get_params"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.get_params">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="TextClassifierNet.get_params">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.TextClassifierNet.get_params">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get hyper-parameters for this estimator</span>
@@ -440,6 +489,7 @@
 <span class="sd">        :return: a dictionary with parameter names mapped to their values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">vocabulary_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -451,7 +501,10 @@
         <span class="o">...</span></div>
 
 
-<div class="viewcode-block" id="LSTMnet"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.LSTMnet">[docs]</a><span class="k">class</span> <span class="nc">LSTMnet</span><span class="p">(</span><span class="n">TextClassifierNet</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LSTMnet">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.LSTMnet">[docs]</a>
+<span class="k">class</span> <span class="nc">LSTMnet</span><span class="p">(</span><span class="n">TextClassifierNet</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An implementation of :class:`quapy.classification.neural.TextClassifierNet` based on</span>
 <span class="sd">    Long Short Term Memory networks.</span>
@@ -495,7 +548,9 @@
             <span class="n">var_hidden</span><span class="p">,</span> <span class="n">var_cell</span> <span class="o">=</span> <span class="n">var_hidden</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">var_cell</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">var_hidden</span><span class="p">,</span> <span class="n">var_cell</span>
 
-<div class="viewcode-block" id="LSTMnet.document_embedding"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.LSTMnet.document_embedding">[docs]</a>    <span class="k">def</span> <span class="nf">document_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="viewcode-block" id="LSTMnet.document_embedding">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.LSTMnet.document_embedding">[docs]</a>
+    <span class="k">def</span> <span class="nf">document_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Embeds documents (i.e., performs the forward pass up to the</span>
 <span class="sd">        next-to-last layer).</span>
 
@@ -511,13 +566,17 @@
         <span class="n">abstracted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_embedder</span><span class="p">(</span><span class="n">abstracted</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">abstracted</span></div>
 
-<div class="viewcode-block" id="LSTMnet.get_params"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.LSTMnet.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LSTMnet.get_params">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.LSTMnet.get_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get hyper-parameters for this estimator</span>
 
 <span class="sd">        :return: a dictionary with parameter names mapped to their values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hyperparams</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">vocabulary_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -529,7 +588,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_size_</span></div>
 
 
-<div class="viewcode-block" id="CNNnet"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.CNNnet">[docs]</a><span class="k">class</span> <span class="nc">CNNnet</span><span class="p">(</span><span class="n">TextClassifierNet</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CNNnet">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.CNNnet">[docs]</a>
+<span class="k">class</span> <span class="nc">CNNnet</span><span class="p">(</span><span class="n">TextClassifierNet</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An implementation of :class:`quapy.classification.neural.TextClassifierNet` based on</span>
 <span class="sd">    Convolutional Neural Networks.</span>
@@ -577,7 +639,9 @@
         <span class="n">max_out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool1d</span><span class="p">(</span><span class="n">activation</span><span class="p">,</span> <span class="n">activation</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># maxpool_out.size() = (batch_size, out_channels)</span>
         <span class="k">return</span> <span class="n">max_out</span>
 
-<div class="viewcode-block" id="CNNnet.document_embedding"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.CNNnet.document_embedding">[docs]</a>    <span class="k">def</span> <span class="nf">document_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+<div class="viewcode-block" id="CNNnet.document_embedding">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.CNNnet.document_embedding">[docs]</a>
+    <span class="k">def</span> <span class="nf">document_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Embeds documents (i.e., performs the forward pass up to the</span>
 <span class="sd">        next-to-last layer).</span>
 
@@ -599,13 +663,17 @@
         <span class="n">abstracted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_embedder</span><span class="p">(</span><span class="n">abstracted</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">abstracted</span></div>
 
-<div class="viewcode-block" id="CNNnet.get_params"><a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.CNNnet.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CNNnet.get_params">
+<a class="viewcode-back" href="../../../quapy.classification.html#quapy.classification.neural.CNNnet.get_params">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get hyper-parameters for this estimator</span>
 
 <span class="sd">        :return: a dictionary with parameter names mapped to their values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hyperparams</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">vocabulary_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -615,6 +683,7 @@
 <span class="sd">        :return: integer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vocabulary_size_</span></div>
+
 
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=a4622379"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/documentation_options.js?v=8618f531"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -92,7 +92,9 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">18</span>
 
 
-<div class="viewcode-block" id="binary_diagonal"><a class="viewcode-back" href="../../quapy.html#quapy.plot.binary_diagonal">[docs]</a><span class="k">def</span> <span class="nf">binary_diagonal</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">pos_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_std</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="binary_diagonal">
+<a class="viewcode-back" href="../../quapy.html#quapy.plot.binary_diagonal">[docs]</a>
+<span class="k">def</span> <span class="nf">binary_diagonal</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">pos_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_std</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">train_prev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">savepath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method_order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The diagonal plot displays the predicted prevalence values (along the y-axis) as a function of the true prevalence</span>
@@ -165,7 +167,10 @@
     <span class="n">_save_or_show</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="binary_bias_global"><a class="viewcode-back" href="../../quapy.html#quapy.plot.binary_bias_global">[docs]</a><span class="k">def</span> <span class="nf">binary_bias_global</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">pos_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">savepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="binary_bias_global">
+<a class="viewcode-back" href="../../quapy.html#quapy.plot.binary_bias_global">[docs]</a>
+<span class="k">def</span> <span class="nf">binary_bias_global</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">pos_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">savepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Box-plots displaying the global bias (i.e., signed error computed as the estimated value minus the true value)</span>
 <span class="sd">    for each quantification method with respect to a given positive class.</span>
@@ -199,7 +204,10 @@
     <span class="n">_save_or_show</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="binary_bias_bins"><a class="viewcode-back" href="../../quapy.html#quapy.plot.binary_bias_bins">[docs]</a><span class="k">def</span> <span class="nf">binary_bias_bins</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">pos_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="p">,</span>
+
+<div class="viewcode-block" id="binary_bias_bins">
+<a class="viewcode-back" href="../../quapy.html#quapy.plot.binary_bias_bins">[docs]</a>
+<span class="k">def</span> <span class="nf">binary_bias_bins</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">pos_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="p">,</span>
                      <span class="n">vertical_xticks</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">savepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Box-plots displaying the local bias (i.e., signed error computed as the estimated value minus the true value)</span>
@@ -289,7 +297,10 @@
     <span class="n">_save_or_show</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="error_by_drift"><a class="viewcode-back" href="../../quapy.html#quapy.plot.error_by_drift">[docs]</a><span class="k">def</span> <span class="nf">error_by_drift</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">tr_prevs</span><span class="p">,</span>
+
+<div class="viewcode-block" id="error_by_drift">
+<a class="viewcode-back" href="../../quapy.html#quapy.plot.error_by_drift">[docs]</a>
+<span class="k">def</span> <span class="nf">error_by_drift</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">tr_prevs</span><span class="p">,</span>
                    <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">error_name</span><span class="o">=</span><span class="s1">&#39;ae&#39;</span><span class="p">,</span> <span class="n">show_std</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                    <span class="n">show_density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">show_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -414,7 +425,10 @@
     <span class="n">_save_or_show</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="brokenbar_supremacy_by_drift"><a class="viewcode-back" href="../../quapy.html#quapy.plot.brokenbar_supremacy_by_drift">[docs]</a><span class="k">def</span> <span class="nf">brokenbar_supremacy_by_drift</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">tr_prevs</span><span class="p">,</span>
+
+<div class="viewcode-block" id="brokenbar_supremacy_by_drift">
+<a class="viewcode-back" href="../../quapy.html#quapy.plot.brokenbar_supremacy_by_drift">[docs]</a>
+<span class="k">def</span> <span class="nf">brokenbar_supremacy_by_drift</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">,</span> <span class="n">tr_prevs</span><span class="p">,</span>
                                  <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">binning</span><span class="o">=</span><span class="s1">&#39;isomerous&#39;</span><span class="p">,</span>
                                  <span class="n">x_error</span><span class="o">=</span><span class="s1">&#39;ae&#39;</span><span class="p">,</span> <span class="n">y_error</span><span class="o">=</span><span class="s1">&#39;ae&#39;</span><span class="p">,</span> <span class="n">ttest_alpha</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">tail_density_threshold</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span>
                                  <span class="n">method_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -595,6 +609,7 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="n">_save_or_show</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span></div>
+
 
 
 <span class="k">def</span> <span class="nf">_merge</span><span class="p">(</span><span class="n">method_names</span><span class="p">,</span> <span class="n">true_prevs</span><span class="p">,</span> <span class="n">estim_prevs</span><span class="p">):</span>

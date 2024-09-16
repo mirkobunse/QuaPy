@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -15,9 +15,10 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a4622379"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/documentation_options.js?v=8618f531"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -80,18 +81,18 @@
   <div class="toctree-wrapper compound">
 </div>
 <section id="quickstart">
-<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading"></a></h1>
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h1>
 <p>QuaPy is an open source framework for quantification (a.k.a. supervised prevalence estimation, or learning to quantify) written in Python.</p>
 <p>QuaPy is based on the concept of “data sample”, and provides implementations of the most important aspects of the quantification workflow, such as (baseline and advanced) quantification methods, quantification-oriented model selection mechanisms, evaluation measures, and evaluations protocols used for evaluating quantification methods. QuaPy also makes available commonly used datasets, and offers visualization tools for facilitating the analysis and interpretation of the experimental results.</p>
 <p>QuaPy is hosted on GitHub at <a class="reference external" href="https://github.com/HLT-ISTI/QuaPy">https://github.com/HLT-ISTI/QuaPy</a>.</p>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>quapy
 </pre></div>
 </div>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
 <p>The following script fetches a dataset of tweets, trains, applies, and evaluates a quantifier based on the <em>Adjusted Classify &amp; Count</em> quantification method, using, as the evaluation measure, the <em>Mean Absolute Error</em> (MAE) between the predicted and the true class prevalence values of the test set:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
@@ -113,7 +114,7 @@
 <p>Quantification is useful in scenarios characterized by prior probability shift. In other words, we would be little interested in estimating the class prevalence values of the test set if we could assume the IID assumption to hold, as this prevalence would be roughly equivalent to the class prevalence of the training set. For this reason, any quantification model should be tested across many samples, even ones characterized by class prevalence values different or very different from those found in the training set. QuaPy implements sampling procedures and evaluation protocols that automate this workflow. See the <a class="reference internal" href="manuals.html"><span class="doc std std-doc">Manuals</span></a> for detailed examples.</p>
 </section>
 <section id="manuals">
-<h2>Manuals<a class="headerlink" href="#manuals" title="Permalink to this heading"></a></h2>
+<h2>Manuals<a class="headerlink" href="#manuals" title="Link to this heading"></a></h2>
 <p>The following manuals illustrate several aspects of QuaPy through examples:</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -135,7 +136,8 @@
 <li class="toctree-l2"><a class="reference internal" href="manuals/explicit-loss-minimization.html">3. Explicit Loss Minimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="manuals/methods.html">4. Quantification Methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="manuals/methods.html#aggregative-methods">4.1. Aggregative Methods</a></li>
-<li class="toctree-l3"><a class="reference internal" href="manuals/methods.html#meta-models">4.2. Meta Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/methods.html#composable-methods">4.2. Composable Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manuals/methods.html#meta-models">4.3. Meta Models</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="manuals/model-selection.html">5. Model Selection</a><ul>
@@ -164,7 +166,7 @@
 </div>
 </section>
 <section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Implementation of many popular quantification methods (Classify-&amp;-Count and its variants, Expectation Maximization, quantification methods based on structured output learning, HDy, QuaNet, quantification ensembles, among others).</p></li>
 <li><p>Versatile functionality for performing evaluation based on sampling generation protocols (e.g., APP, NPP, etc.).</p></li>
@@ -185,7 +187,7 @@
 </ul>
 </section>
 <section id="citing-quapy">
-<h2>Citing QuaPy<a class="headerlink" href="#citing-quapy" title="Permalink to this heading"></a></h2>
+<h2>Citing QuaPy<a class="headerlink" href="#citing-quapy" title="Link to this heading"></a></h2>
 <p>If you find QuaPy useful (and we hope you will), please consider citing the original paper in your research.</p>
 <div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">moreo2021quapy</span><span class="p">,</span>
 <span class="w">   </span><span class="na">title</span><span class="p">=</span><span class="s">{QuaPy: a python-based framework for quantification}</span><span class="p">,</span>
@@ -198,11 +200,11 @@
 </div>
 </section>
 <section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading"></a></h2>
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
 <p>In case you want to contribute improvements to quapy, please generate pull request to the “devel” branch.</p>
 </section>
 <section id="acknowledgments">
-<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this heading"></a></h2>
+<h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading"></a></h2>
 <a class="reference internal image-reference" href="_images/SoBigData.png"><img alt="SoBigData++" src="_images/SoBigData.png" style="width: 250px;" /></a>
 </section>
 </section>

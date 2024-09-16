@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=a4622379"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../_static/documentation_options.js?v=8618f531"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -119,7 +119,9 @@
     <span class="s2">&quot;GaussianRFFKernelTransformer&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
-<div class="viewcode-block" id="ComposableQuantifier"><a class="viewcode-back" href="../../../quapy.method.html#quapy.method.composable.ComposableQuantifier">[docs]</a><span class="k">def</span> <span class="nf">ComposableQuantifier</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">transformer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ComposableQuantifier">
+<a class="viewcode-back" href="../../../quapy.method.html#quapy.method.composable.ComposableQuantifier">[docs]</a>
+<span class="k">def</span> <span class="nf">ComposableQuantifier</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">transformer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A generic quantification / unfolding method that solves a linear system of equations.</span>
 
 <span class="sd">    This class represents any quantifier that can be described in terms of a loss function, a feature transformation, and a regularization term. In this implementation, the loss is minimized through unconstrained second-order minimization. Valid probability estimates are ensured through a soft-max trick by Bunse (2022).</span>
@@ -134,7 +136,7 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        Here, we create the ordinal variant of ACC (Bunse et al., 2023). This variant consists of the original feature transformation of ACC and of the original loss of ACC, the latter of which is regularized towards smooth solutions.</span>
 
-<span class="sd">            &gt;&gt;&gt; from qunfold.method.composable import (</span>
+<span class="sd">            &gt;&gt;&gt; from quapy.method.composable import (</span>
 <span class="sd">            &gt;&gt;&gt;     ComposableQuantifier,</span>
 <span class="sd">            &gt;&gt;&gt;     TikhonovRegularized,</span>
 <span class="sd">            &gt;&gt;&gt;     LeastSquaresLoss,</span>
@@ -158,7 +160,7 @@
 <span class="sd">        </span>
 <span class="sd">        To use a classifier that does not provide the `oob_score` argument, such as logistic regression, you have to configure a cross validation of this classifier. Here, we employ 10 cross validation folds. 5 folds are the default.</span>
 
-<span class="sd">            &gt;&gt;&gt; from qunfold.method.composable import CVClassifier</span>
+<span class="sd">            &gt;&gt;&gt; from quapy.method.composable import CVClassifier</span>
 <span class="sd">            &gt;&gt;&gt; from sklearn.linear_model import LogisticRegression</span>
 <span class="sd">            &gt;&gt;&gt; acc_lr = ComposableQuantifier(</span>
 <span class="sd">            &gt;&gt;&gt;     LeastSquaresLoss(),</span>
@@ -166,6 +168,7 @@
 <span class="sd">            &gt;&gt;&gt; )</span>
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">QuaPyWrapper</span><span class="p">(</span><span class="n">qunfold</span><span class="o">.</span><span class="n">GenericMethod</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">transformer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
 </pre></div>
 
            </div>

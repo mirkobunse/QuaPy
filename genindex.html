@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a4622379"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/documentation_options.js?v=8618f531"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -100,7 +100,6 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
- | <a href="#W"><strong>W</strong></a>
  | <a href="#X"><strong>X</strong></a>
  | <a href="#Y"><strong>Y</strong></a>
  
@@ -460,6 +459,8 @@
 </li>
       <li><a href="quapy.data.html#quapy.data.datasets.fetch_lequa2022">fetch_lequa2022() (in module quapy.data.datasets)</a>
 </li>
+      <li><a href="quapy.data.html#quapy.data.datasets.fetch_lequa2024">fetch_lequa2024() (in module quapy.data.datasets)</a>
+</li>
       <li><a href="quapy.data.html#quapy.data.datasets.fetch_reviews">fetch_reviews() (in module quapy.data.datasets)</a>
 </li>
       <li><a href="quapy.data.html#quapy.data.datasets.fetch_twitter">fetch_twitter() (in module quapy.data.datasets)</a>
@@ -732,11 +733,15 @@
 </li>
       <li><a href="quapy.html#quapy.util.map_parallel">map_parallel() (in module quapy.util)</a>
 </li>
+      <li><a href="quapy.html#quapy.error.match_distance">match_distance() (in module quapy.error)</a>
+</li>
       <li><a href="quapy.method.html#quapy.method._threshold_optim.MAX">MAX (class in quapy.method._threshold_optim)</a>
 </li>
       <li><a href="quapy.method.html#quapy.method.aggregative.EMQ.MAX_ITER">MAX_ITER (quapy.method.aggregative.EMQ attribute)</a>
 </li>
       <li><a href="quapy.method.html#quapy.method.non_aggregative.MaximumLikelihoodPrevalenceEstimation">MaximumLikelihoodPrevalenceEstimation (class in quapy.method.non_aggregative)</a>
+</li>
+      <li><a href="quapy.html#quapy.error.md">md() (in module quapy.error)</a>
 </li>
       <li><a href="quapy.html#quapy.error.mean_absolute_error">mean_absolute_error() (in module quapy.error)</a>
 </li>
@@ -859,21 +864,25 @@
 </li>
       <li><a href="quapy.method.html#quapy.method.aggregative.newSVMAE">newSVMAE() (in module quapy.method.aggregative)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="quapy.method.html#quapy.method.aggregative.newSVMKLD">newSVMKLD() (in module quapy.method.aggregative)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="quapy.method.html#quapy.method.aggregative.newSVMQ">newSVMQ() (in module quapy.method.aggregative)</a>
 </li>
       <li><a href="quapy.method.html#quapy.method.aggregative.newSVMRAE">newSVMRAE() (in module quapy.method.aggregative)</a>
 </li>
       <li><a href="quapy.html#quapy.error.nkld">nkld() (in module quapy.error)</a>
 </li>
+      <li><a href="quapy.html#quapy.error.nmd">nmd() (in module quapy.error)</a>
+</li>
       <li><a href="quapy.method.html#quapy.method.aggregative.ACC.NORMALIZATIONS">NORMALIZATIONS (quapy.method.aggregative.ACC attribute)</a>
 </li>
       <li><a href="quapy.html#quapy.functional.normalize_prevalence">normalize_prevalence() (in module quapy.functional)</a>
 </li>
       <li><a href="quapy.html#quapy.error.normalized_absolute_error">normalized_absolute_error() (in module quapy.error)</a>
+</li>
+      <li><a href="quapy.html#quapy.error.normalized_match_distance">normalized_match_distance() (in module quapy.error)</a>
 </li>
       <li><a href="quapy.html#quapy.error.normalized_relative_absolute_error">normalized_relative_absolute_error() (in module quapy.error)</a>
 </li>
@@ -1462,16 +1471,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="quapy.data.html#quapy.data.base.Dataset.train_test">train_test (quapy.data.base.Dataset property)</a>
 </li>
-      <li><a href="quapy.classification.html#quapy.classification.neural.CNNnet.training">training (quapy.classification.neural.CNNnet attribute)</a>
-
-      <ul>
-        <li><a href="quapy.classification.html#quapy.classification.neural.LSTMnet.training">(quapy.classification.neural.LSTMnet attribute)</a>
-</li>
-        <li><a href="quapy.classification.html#quapy.classification.neural.TextClassifierNet.training">(quapy.classification.neural.TextClassifierNet attribute)</a>
-</li>
-        <li><a href="quapy.method.html#quapy.method._neural.QuaNetModule.training">(quapy.method._neural.QuaNetModule attribute)</a>
-</li>
-      </ul></li>
       <li><a href="quapy.classification.html#quapy.classification.methods.LowRankLogisticRegression.transform">transform() (quapy.classification.methods.LowRankLogisticRegression method)</a>
 
       <ul>
@@ -1547,14 +1546,6 @@
       <li><a href="quapy.data.html#quapy.data.preprocessing.IndexTransformer.vocabulary_size">vocabulary_size() (quapy.data.preprocessing.IndexTransformer method)</a>
 </li>
       <li><a href="quapy.classification.html#quapy.classification.calibration.VSCalibration">VSCalibration (class in quapy.classification.calibration)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="W">W</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="quapy.data.html#quapy.data.datasets.warn">warn() (in module quapy.data.datasets)</a>
 </li>
   </ul></td>
 </tr></table>
