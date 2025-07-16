@@ -1,22 +1,20 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>quapy.data.base &mdash; QuaPy: A Python-based open-source framework for quantification 0.1.9 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=8618f531"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8618f531"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -76,22 +74,22 @@
            <div itemprop="articleBody">
              
   <h1>Source code for quapy.data.base</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cached_property</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">vstack</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">RepeatedStratifiedKFold</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">RandomState</span>
-<span class="kn">from</span> <span class="nn">quapy.functional</span> <span class="kn">import</span> <span class="n">strprev</span>
-<span class="kn">from</span> <span class="nn">quapy.util</span> <span class="kn">import</span> <span class="n">temp_seed</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">issparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">vstack</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">RepeatedStratifiedKFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomState</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quapy.functional</span><span class="w"> </span><span class="kn">import</span> <span class="n">strprev</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quapy.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">temp_seed</span>
 
 
 <div class="viewcode-block" id="LabelledCollection">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection">[docs]</a>
-<span class="k">class</span> <span class="nc">LabelledCollection</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LabelledCollection</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A LabelledCollection is a set of objects each with a label attached to each of them. </span>
 <span class="sd">    This class implements several sampling routines and other utilities.</span>
@@ -103,7 +101,7 @@
 <span class="sd">        (i.e., a prevalence of 0)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="n">instances</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
@@ -126,7 +124,7 @@
 <div class="viewcode-block" id="LabelledCollection.load">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.load">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">loader_func</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">loader_func</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads a labelled set of data and convert it into a :class:`LabelledCollection` instance. The function in charge</span>
 <span class="sd">        of reading the instances must be specified. This function can be a custom one, or any of the reading functions</span>
@@ -143,7 +141,7 @@
         <span class="k">return</span> <span class="n">LabelledCollection</span><span class="p">(</span><span class="o">*</span><span class="n">loader_func</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">),</span> <span class="n">classes</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the length of this collection (number of labelled instances)</span>
 
@@ -153,7 +151,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.prevalence">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.prevalence">[docs]</a>
-    <span class="k">def</span> <span class="nf">prevalence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prevalence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the prevalence, or relative frequency, of the classes in the codeframe.</span>
 
@@ -165,7 +163,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.counts">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.counts">[docs]</a>
-    <span class="k">def</span> <span class="nf">counts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">counts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the number of instances for each of the classes in the codeframe.</span>
 
@@ -176,7 +174,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">n_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">n_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of classes</span>
 
@@ -185,7 +183,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">binary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">binary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns True if the number of classes is 2</span>
 
@@ -195,7 +193,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.sampling_index">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.sampling_index">[docs]</a>
-    <span class="k">def</span> <span class="nf">sampling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">*</span><span class="n">prevs</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sampling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">*</span><span class="n">prevs</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an index to be used to extract a random sample of desired size and desired prevalence values. If the</span>
 <span class="sd">        prevalence values are not specified, then returns the index of a uniform sampling.</span>
@@ -258,7 +256,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.uniform_sampling_index">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.uniform_sampling_index">[docs]</a>
-    <span class="k">def</span> <span class="nf">uniform_sampling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">uniform_sampling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an index to be used to extract a uniform sample of desired size. The sampling is drawn</span>
 <span class="sd">        with replacement.</span>
@@ -276,7 +274,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.sampling">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.sampling">[docs]</a>
-    <span class="k">def</span> <span class="nf">sampling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">*</span><span class="n">prevs</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sampling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">*</span><span class="n">prevs</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a random sample (an instance of :class:`LabelledCollection`) of desired size and desired prevalence</span>
 <span class="sd">        values. For each class, the sampling is drawn with replacement.</span>
@@ -296,7 +294,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.uniform_sampling">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.uniform_sampling">[docs]</a>
-    <span class="k">def</span> <span class="nf">uniform_sampling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">uniform_sampling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a uniform sample (an instance of :class:`LabelledCollection`) of desired size. The sampling is drawn</span>
 <span class="sd">        with replacement.</span>
@@ -311,7 +309,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.sampling_from_index">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.sampling_from_index">[docs]</a>
-    <span class="k">def</span> <span class="nf">sampling_from_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sampling_from_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns an instance of :class:`LabelledCollection` whose elements are sampled from this collection using the</span>
 <span class="sd">        index.</span>
@@ -326,7 +324,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.split_stratified">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.split_stratified">[docs]</a>
-    <span class="k">def</span> <span class="nf">split_stratified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_prop</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split_stratified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_prop</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns two instances of :class:`LabelledCollection` split with stratification from this collection, at desired</span>
 <span class="sd">        proportion.</span>
@@ -348,7 +346,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.split_random">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.split_random">[docs]</a>
-    <span class="k">def</span> <span class="nf">split_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_prop</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_prop</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns two instances of :class:`LabelledCollection` split randomly from this collection, at desired</span>
 <span class="sd">        proportion.</span>
@@ -375,7 +373,7 @@
         <span class="k">return</span> <span class="n">training</span><span class="p">,</span> <span class="n">test</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new :class:`LabelledCollection` as the union of this collection with another collection.</span>
 <span class="sd">        Both labelled collections must have the same classes.</span>
@@ -391,7 +389,7 @@
 <div class="viewcode-block" id="LabelledCollection.join">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.join">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s1">&#39;LabelledCollection&#39;</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">join</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="s1">&#39;LabelledCollection&#39;</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new :class:`LabelledCollection` as the union of the collections given in input.</span>
 
@@ -432,7 +430,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Xy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the instances and labels. This is useful when working with `sklearn` estimators, e.g.:</span>
 
@@ -443,7 +441,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Xp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Xp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the instances and the true prevalence. This is useful when implementing evaluation protocols from</span>
 <span class="sd">        a :class:`LabelledCollection` object.</span>
@@ -453,7 +451,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prevalence</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">X</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">X</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        An alias to self.instances</span>
 
@@ -462,7 +460,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        An alias to self.labels</span>
 
@@ -471,7 +469,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        An alias to self.prevalence()</span>
 
@@ -482,7 +480,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.stats">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.stats">[docs]</a>
-    <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns (and eventually prints) a dictionary with some stats of this collection. E.g.,:</span>
 
@@ -517,7 +515,7 @@
 
 <div class="viewcode-block" id="LabelledCollection.kFCV">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.LabelledCollection.kFCV">[docs]</a>
-    <span class="k">def</span> <span class="nf">kFCV</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nfolds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nrepeats</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">kFCV</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nfolds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nrepeats</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generator of stratified folds to be used in k-fold cross validation.</span>
 
@@ -537,7 +535,7 @@
 
 <div class="viewcode-block" id="Dataset">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.Dataset">[docs]</a>
-<span class="k">class</span> <span class="nc">Dataset</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Dataset</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Abstraction of training and test :class:`LabelledCollection` objects.</span>
 
@@ -547,7 +545,7 @@
 <span class="sd">    :param name: a string representing the name of the dataset</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">test</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">vocabulary</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">test</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">vocabulary</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">training</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">classes_</span><span class="p">),</span> <span class="s1">&#39;incompatible labels in training and test collections&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">training</span> <span class="o">=</span> <span class="n">training</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">test</span>
@@ -557,7 +555,7 @@
 <div class="viewcode-block" id="Dataset.SplitStratified">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.Dataset.SplitStratified">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">SplitStratified</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">collection</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">SplitStratified</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">collection</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates a :class:`Dataset` from a stratified split of a :class:`LabelledCollection` instance.</span>
 <span class="sd">        See :meth:`LabelledCollection.split_stratified`</span>
@@ -570,7 +568,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">classes_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">classes_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The classes according to which the training collection is labelled</span>
 
@@ -579,7 +577,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">classes_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">n_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">n_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The number of classes according to which the training collection is labelled</span>
 
@@ -588,7 +586,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">n_classes</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">binary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">binary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns True if the training collection is labelled according to two classes</span>
 
@@ -599,7 +597,7 @@
 <div class="viewcode-block" id="Dataset.load">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.Dataset.load">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">train_path</span><span class="p">,</span> <span class="n">test_path</span><span class="p">,</span> <span class="n">loader_func</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">train_path</span><span class="p">,</span> <span class="n">test_path</span><span class="p">,</span> <span class="n">loader_func</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">loader_kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads a training and a test labelled set of data and convert it into a :class:`Dataset` instance.</span>
 <span class="sd">        The function in charge of reading the instances must be specified. This function can be a custom one, or any of</span>
@@ -621,7 +619,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">vocabulary_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vocabulary_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If the dataset is textual, and the vocabulary was indicated, returns the size of the vocabulary</span>
 
@@ -630,7 +628,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocabulary</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">train_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alias to `self.training` and `self.test`</span>
 
@@ -641,7 +639,7 @@
 
 <div class="viewcode-block" id="Dataset.stats">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.Dataset.stats">[docs]</a>
-    <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns (and eventually prints) a dictionary with some stats of this dataset. E.g.,:</span>
 
@@ -668,7 +666,7 @@
 <div class="viewcode-block" id="Dataset.kFCV">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.Dataset.kFCV">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">kFCV</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">nfolds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nrepeats</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">kFCV</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">nfolds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nrepeats</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generator of stratified folds to be used in k-fold cross validation. This function is only a wrapper around</span>
 <span class="sd">        :meth:`LabelledCollection.kFCV` that returns :class:`Dataset` instances made of training and test folds.</span>
@@ -685,7 +683,7 @@
 
 <div class="viewcode-block" id="Dataset.reduce">
 <a class="viewcode-back" href="../../../quapy.data.html#quapy.data.base.Dataset.reduce">[docs]</a>
-    <span class="k">def</span> <span class="nf">reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_train</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_train</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_test</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reduce the number of instances in place for quick experiments. Preserves the prevalence of each set.</span>
 

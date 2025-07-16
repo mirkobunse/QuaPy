@@ -1,22 +1,20 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>qunfold.transformers &mdash; QuaPy: A Python-based open-source framework for quantification 0.1.9 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8618f531"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8618f531"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -76,14 +74,14 @@
            <div itemprop="articleBody">
              
   <h1>Source code for qunfold.transformers</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
-<span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">cdist</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">cdist</span>
 
-<span class="k">def</span> <span class="nf">class_prevalences</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">class_prevalences</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;Determine the prevalence of each class.</span>
 
 <span class="sd">  Args:</span>
@@ -101,15 +99,15 @@
   <span class="k">return</span> <span class="n">n_samples_per_class</span> <span class="o">/</span> <span class="n">n_samples_per_class</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># normalize to prevalences</span>
 
 <span class="c1"># helper function for ensuring sane labels</span>
-<span class="k">def</span> <span class="nf">_check_y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">n_classes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">n_classes</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
       <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classes are missing: n_classes != np.max(y)+1 = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">AbstractTransformer</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractTransformer</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;Abstract base class for transformers.&quot;&quot;&quot;</span>
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This abstract method has to fit the transformer and to return the transformation of the input data.</span>
 
 <span class="sd">    Note:</span>
@@ -126,7 +124,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This abstract method has to transform the data `X`.</span>
 
 <span class="sd">    Args:</span>
@@ -139,12 +137,12 @@
     <span class="k">pass</span>
 
 <span class="c1"># helper function for ClassTransformer(..., is_probabilistic=False)</span>
-<span class="k">def</span> <span class="nf">_onehot_encoding</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_onehot_encoding</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_classes</span><span class="p">)[</span><span class="n">y</span><span class="p">]</span> <span class="c1"># https://stackoverflow.com/a/42874726/20580159</span>
 
 <div class="viewcode-block" id="ClassTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.ClassTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">ClassTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClassTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;A classification-based feature transformation.</span>
 
 <span class="sd">  This transformation can either be probabilistic (using the posterior predictions of a classifier) or crisp (using the class predictions of a classifier). It is used in ACC, PACC, CC, PCC, and SLD.</span>
@@ -154,13 +152,13 @@
 <span class="sd">      is_probabilistic (optional): Whether probabilistic or crisp predictions of the `classifier` are used to transform the data. Defaults to `False`.</span>
 <span class="sd">      fit_classifier (optional): Whether to fit the `classifier` when this quantifier is fitted. Defaults to `True`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">is_probabilistic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit_classifier</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">is_probabilistic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fit_classifier</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">classifier</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">is_probabilistic</span> <span class="o">=</span> <span class="n">is_probabilistic</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">fit_classifier</span> <span class="o">=</span> <span class="n">fit_classifier</span>
 <div class="viewcode-block" id="ClassTransformer.fit_transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.ClassTransformer.fit_transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">,</span> <span class="s2">&quot;oob_score&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">oob_score</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
         <span class="s2">&quot;The ClassTransformer either requires a bagging classifier with oob_score=True&quot;</span><span class="p">,</span>
@@ -188,7 +186,7 @@
 
 <div class="viewcode-block" id="ClassTransformer.transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.ClassTransformer.transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_trn</span><span class="p">)</span>
     <span class="n">fX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_classes</span><span class="p">))</span>
     <span class="n">fX</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">classes_</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -202,19 +200,19 @@
 
 <div class="viewcode-block" id="DistanceTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.DistanceTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">DistanceTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DistanceTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;A distance-based feature transformation, as it is used in `EDx` and `EDy`.</span>
 
 <span class="sd">  Args:</span>
 <span class="sd">      metric (optional): The metric with which the distance between data items is measured. Can take any value that is accepted by `scipy.spatial.distance.cdist`. Defaults to `&quot;euclidean&quot;`.</span>
 <span class="sd">      preprocessor (optional): Another `AbstractTransformer` that is called before this transformer. Defaults to `None`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span>
 <div class="viewcode-block" id="DistanceTransformer.fit_transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.DistanceTransformer.fit_transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">p_trn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">p_trn</span> <span class="c1"># copy from preprocessor</span>
@@ -235,12 +233,12 @@
 
 <div class="viewcode-block" id="DistanceTransformer.transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.DistanceTransformer.transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_after_preprocessor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span></div>
 
-  <span class="k">def</span> <span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_trn</span><span class="p">)</span>
     <span class="n">fX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_classes</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
@@ -253,7 +251,7 @@
 
 <div class="viewcode-block" id="HistogramTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.HistogramTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">HistogramTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HistogramTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;A histogram-based feature transformation, as it is used in `HDx` and `HDy`.</span>
 
 <span class="sd">  Args:</span>
@@ -261,13 +259,13 @@
 <span class="sd">      preprocessor (optional): Another `AbstractTransformer` that is called before this transformer. Defaults to `None`.</span>
 <span class="sd">      unit_scale (optional): Whether or not to scale each output to a sum of one. A value of `False` indicates that the sum of each output is the number of features. Defaults to `True`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">n_bins</span> <span class="o">=</span> <span class="n">n_bins</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">unit_scale</span> <span class="o">=</span> <span class="n">unit_scale</span>
 <div class="viewcode-block" id="HistogramTransformer.fit_transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.HistogramTransformer.fit_transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">n_classes</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">p_trn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">p_trn</span> <span class="c1"># copy from preprocessor</span>
@@ -289,12 +287,12 @@
 
 <div class="viewcode-block" id="HistogramTransformer.transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.HistogramTransformer.transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_after_preprocessor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">)</span></div>
 
-  <span class="k">def</span> <span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="n">fX</span> <span class="o">=</span> <span class="p">[]</span>
       <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span> <span class="c1"># feature index</span>
@@ -325,7 +323,7 @@
 
 <div class="viewcode-block" id="EnergyKernelTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.EnergyKernelTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">EnergyKernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnergyKernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;A kernel-based feature transformation, as it is used in `KMM`, that uses the `energy` kernel:</span>
 
 <span class="sd">      k(x_1, x_2) = ||x_1|| + ||x_2|| - ||x_1 - x_2||</span>
@@ -336,11 +334,11 @@
 <span class="sd">  Args:</span>
 <span class="sd">      preprocessor (optional): Another `AbstractTransformer` that is called before this transformer. Defaults to `None`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span>
 <div class="viewcode-block" id="EnergyKernelTransformer.fit_transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.EnergyKernelTransformer.fit_transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;EnergyKernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -364,7 +362,7 @@
 
 <div class="viewcode-block" id="EnergyKernelTransformer.transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.EnergyKernelTransformer.transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;EnergyKernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -372,7 +370,7 @@
     <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_after_preprocessor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span></div>
 
-  <span class="k">def</span> <span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="p">):</span>
     <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_trn</span><span class="p">)</span>
     <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_classes</span><span class="p">)</span> <span class="c1"># = ||x_1 - x_2|| for all x_2 = X_trn[y_trn == i]</span>
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
@@ -383,7 +381,7 @@
 
 <div class="viewcode-block" id="GaussianKernelTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.GaussianKernelTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">GaussianKernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GaussianKernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;A kernel-based feature transformation, as it is used in `KMM`, that uses the `gaussian` kernel:</span>
 
 <span class="sd">      k(x, y) = exp(-||x - y||^2 / (2σ^2))</span>
@@ -392,12 +390,12 @@
 <span class="sd">      sigma (optional): A smoothing parameter of the kernel function. Defaults to `1`.</span>
 <span class="sd">      preprocessor (optional): Another `AbstractTransformer` that is called before this transformer. Defaults to `None`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span>
 <div class="viewcode-block" id="GaussianKernelTransformer.fit_transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.GaussianKernelTransformer.fit_transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GaussianKernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -416,14 +414,14 @@
 
 <div class="viewcode-block" id="GaussianKernelTransformer.transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.GaussianKernelTransformer.transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GaussianKernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_after_preprocessor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
 
-  <span class="k">def</span> <span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
     <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_trn</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_classes</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
@@ -435,7 +433,7 @@
 
 <div class="viewcode-block" id="KernelTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.KernelTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">KernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">KernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;A general kernel-based feature transformation, as it is used in `KMM`. If you intend to use a Gaussian kernel or energy kernel, prefer their dedicated and more efficient implementations over this class.</span>
 
 <span class="sd">  Note:</span>
@@ -444,11 +442,11 @@
 <span class="sd">  Args:</span>
 <span class="sd">      kernel: A callable that will be used as the kernel. Must follow the signature `(X[y==i], X[y==j]) -&gt; scalar`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>
 <div class="viewcode-block" id="KernelTransformer.fit_transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.KernelTransformer.fit_transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;KernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="n">_check_y</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
@@ -467,7 +465,7 @@
 
 <div class="viewcode-block" id="KernelTransformer.transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.KernelTransformer.transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;KernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_trn</span><span class="p">)</span>
@@ -480,7 +478,7 @@
 
 
 <span class="c1"># kernel function for the LaplacianKernelTransformer</span>
-<span class="k">def</span> <span class="nf">_laplacianKernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_laplacianKernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
     <span class="n">nx</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">ny</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
@@ -491,22 +489,22 @@
 
 <div class="viewcode-block" id="LaplacianKernelTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.LaplacianKernelTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">LaplacianKernelTransformer</span><span class="p">(</span><span class="n">KernelTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LaplacianKernelTransformer</span><span class="p">(</span><span class="n">KernelTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;A kernel-based feature transformation, as it is used in `KMM`, that uses the `laplacian` kernel.</span>
 
 <span class="sd">  Args:</span>
 <span class="sd">      sigma (optional): A smoothing parameter of the kernel function. Defaults to `1`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
   <span class="nd">@property</span> <span class="c1"># implement self.kernel as a property to allow for hyper-parameter tuning of sigma</span>
-  <span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">partial</span><span class="p">(</span><span class="n">_laplacianKernel</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="GaussianRFFKernelTransformer">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.GaussianRFFKernelTransformer">[docs]</a>
-<span class="k">class</span> <span class="nc">GaussianRFFKernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GaussianRFFKernelTransformer</span><span class="p">(</span><span class="n">AbstractTransformer</span><span class="p">):</span>
 <span class="w">  </span><span class="sd">&quot;&quot;&quot;An efficient approximation of the `GaussianKernelTransformer`, as it is used in `KMM`, using random Fourier features.</span>
 
 <span class="sd">  Args:</span>
@@ -515,14 +513,14 @@
 <span class="sd">      preprocessor (optional): Another `AbstractTransformer` that is called before this transformer. Defaults to `None`.</span>
 <span class="sd">      seed (optional): Controls the randomness of the random Fourier features. Defaults to `None`.</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_rff</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_rff</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">n_rff</span> <span class="o">=</span> <span class="n">n_rff</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="o">=</span> <span class="n">preprocessor</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
 <div class="viewcode-block" id="GaussianRFFKernelTransformer.fit_transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.GaussianRFFKernelTransformer.fit_transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GaussianRFFKernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -548,14 +546,14 @@
 
 <div class="viewcode-block" id="GaussianRFFKernelTransformer.transform">
 <a class="viewcode-back" href="../../quapy.method.html#quapy.method.composable.GaussianRFFKernelTransformer.transform">[docs]</a>
-  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">average</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GaussianRFFKernelTransformer does not support average=False&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessor</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_after_preprocessor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span></div>
 
-  <span class="k">def</span> <span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">_transform_after_preprocessor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
     <span class="n">Xw</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">T</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Xw</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Xw</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_rff</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>

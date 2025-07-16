@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -5,19 +7,15 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>4. Quantification Methods &mdash; QuaPy: A Python-based open-source framework for quantification 0.1.9 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=8618f531"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8618f531"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -124,10 +122,10 @@ products of classification.</p>
 <p>Any quantifier in QuaPy shoud extend the class <code class="docutils literal notranslate"><span class="pre">BaseQuantifier</span></code>,
 and implement some abstract methods:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">):</span> <span class="o">...</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">quantify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">quantify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>The meaning of those functions should be familiar to those
@@ -150,15 +148,15 @@ to simplify the use of <code class="docutils literal notranslate"><span class="p
 <code class="docutils literal notranslate"><span class="pre">qp.method.aggregative</span></code>, and extend <code class="docutils literal notranslate"><span class="pre">AggregativeQuantifier(BaseQuantifier)</span></code>.
 The methods that any <code class="docutils literal notranslate"><span class="pre">aggregative</span></code> quantifier must implement are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">aggregation_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classif_predictions</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aggregation_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classif_predictions</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">):</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">aggregate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classif_predictions</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classif_predictions</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>These two functions replace the <code class="docutils literal notranslate"><span class="pre">fit</span></code> and <code class="docutils literal notranslate"><span class="pre">quantify</span></code> methods, since those
 come with default implementations. The <code class="docutils literal notranslate"><span class="pre">fit</span></code> function is provided and amounts to:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">fit_classifier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">val_split</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">LabelledCollection</span><span class="p">,</span> <span class="n">fit_classifier</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">val_split</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_init_parameters</span><span class="p">()</span>
     <span class="n">classif_predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier_fit_predict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fit_classifier</span><span class="p">,</span> <span class="n">predict_on</span><span class="o">=</span><span class="n">val_split</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">aggregation_fit</span><span class="p">(</span><span class="n">classif_predictions</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
@@ -181,7 +179,7 @@ overriden (if needed) and allows the method to quickly raise any exception based
 found in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> arguments, thus avoiding to break after training the classifier and generating
 predictions.</p>
 <p>Similarly, the function <code class="docutils literal notranslate"><span class="pre">quantify</span></code> is provided, and amounts to:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quantify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">quantify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
     <span class="n">classif_predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">classif_predictions</span><span class="p">)</span>
 </pre></div>
@@ -220,9 +218,9 @@ relies on the soft estimations (or posterior probabilities) returned by a (proba
 </ul>
 <p>The following code serves as a complete example using CC equipped
 with a SVM as the classifier:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
-<span class="kn">import</span> <span class="nn">quapy.functional</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quapy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">quapy.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearSVC</span>
 
 <span class="n">training</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_twitter</span><span class="p">(</span><span class="s1">&#39;hcr&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">train_test</span>
 
@@ -352,8 +350,8 @@ for improving the estimation of prior probabilities, EMQ ranks
 almost always among the most effective quantifiers in the
 experiments we have carried out.</p>
 <p>An example of use can be found below:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quapy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_twitter</span><span class="p">(</span><span class="s1">&#39;hcr&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -391,8 +389,8 @@ stratified split), or a validation set (i.e., an instance of
 <p>HDy was proposed as a binary classifier and the implementation
 provided in QuaPy accepts only binary datasets.</p>
 <p>The following code shows an example of use:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quapy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="c1"># load a binary dataset</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_reviews</span><span class="p">(</span><span class="s1">&#39;hp&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -481,8 +479,8 @@ In QuaPy this is possible by using the <code class="docutils literal notranslate
 any quantifier, and <code class="docutils literal notranslate"><span class="pre">OneVsAllAggregative</span></code> that is optimized for aggregative quantifiers.
 In general, you can simply use the <code class="docutils literal notranslate"><span class="pre">newOneVsAll</span></code> function and QuaPy will choose
 the more convenient of the two.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
-<span class="kn">from</span> <span class="nn">quapy.method.aggregative</span> <span class="kn">import</span> <span class="n">SVMQ</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quapy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quapy.method.aggregative</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVMQ</span>
 
 <span class="c1"># load a single-label dataset (this one contains 3 classes)</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_twitter</span><span class="p">(</span><span class="s1">&#39;hcr&#39;</span><span class="p">,</span> <span class="n">pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -525,7 +523,7 @@ vary smoothing with smooth variations of this hyperparameter.</p>
 <h3><span class="section-number">4.2.1. </span>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
 pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;jax[cpu]&quot;</span>
-pip<span class="w"> </span>install<span class="w"> </span>quapy<span class="o">[</span>composable<span class="o">]</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;qunfold @ git+https://github.com/mirkobunse/qunfold@v0.1.4&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -601,10 +599,10 @@ Information Fusion, 45, 1-15.</em></a></p></li>
 quantifiers operating with a <em>Logistic Regressor</em> (LR) as the base classifier, and using the
 <em>average</em> as the aggregation policy (see the original article for further details).
 The last parameter indicates to use all processors for parallelization.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
-<span class="kn">from</span> <span class="nn">quapy.method.aggregative</span> <span class="kn">import</span> <span class="n">ACC</span>
-<span class="kn">from</span> <span class="nn">quapy.method.meta</span> <span class="kn">import</span> <span class="n">Ensemble</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quapy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quapy.method.aggregative</span><span class="w"> </span><span class="kn">import</span> <span class="n">ACC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quapy.method.meta</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ensemble</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_UCIBinaryDataset</span><span class="p">(</span><span class="s1">&#39;haberman&#39;</span><span class="p">)</span>
 
@@ -636,9 +634,9 @@ QuaNet also requires a classifier that can provide embedded representations
 of the inputs.
 In the original paper, QuaNet was tested using an LSTM as the base classifier.
 In the following example, we show an instantiation of QuaNet that instead uses CNN as a probabilistic classifier, taking its last layer representation as the document embedding:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quapy</span> <span class="k">as</span> <span class="nn">qp</span>
-<span class="kn">from</span> <span class="nn">quapy.method.meta</span> <span class="kn">import</span> <span class="n">QuaNet</span>
-<span class="kn">from</span> <span class="nn">quapy.classification.neural</span> <span class="kn">import</span> <span class="n">NeuralClassifierTrainer</span><span class="p">,</span> <span class="n">CNNnet</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">quapy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quapy.method.meta</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuaNet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">quapy.classification.neural</span><span class="w"> </span><span class="kn">import</span> <span class="n">NeuralClassifierTrainer</span><span class="p">,</span> <span class="n">CNNnet</span>
 
 <span class="c1"># use samples of 100 elements</span>
 <span class="n">qp</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;SAMPLE_SIZE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
